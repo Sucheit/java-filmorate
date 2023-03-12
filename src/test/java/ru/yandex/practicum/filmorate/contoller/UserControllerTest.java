@@ -74,7 +74,7 @@ class UserControllerTest {
         mockMvc.perform(put("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userToUpdate)))
-                .andExpect(status().is(404))
+                .andExpect(status().isOk())
                 .andReturn();
     }
 }

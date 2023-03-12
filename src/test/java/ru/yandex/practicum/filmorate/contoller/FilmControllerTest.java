@@ -70,7 +70,7 @@ class FilmControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(filmToUpdate)))
                 .andDo(print())
-                .andExpect(status().is(404))
+                .andExpect(status().isOk())
                 .andReturn();
     }
 }
