@@ -2,10 +2,10 @@ package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.dao.FilmRepository;
+import ru.yandex.practicum.filmorate.repository.FilmRepository;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.service.ValidationService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,15 +25,13 @@ public class FilmController {
     }
 
     @PostMapping(value = "/films")
-    public Film create(@RequestBody Film film) {
-        ValidationService.validateFilm(film);
+    public Film create(@Valid @RequestBody Film film) {
         log.trace("Фильм добавлен: " + film);
         return filmRepository.addFilm(film);
     }
 
     @PutMapping(value = "/films")
-    public Film update(@RequestBody Film film) {
-        ValidationService.validateFilm(film);
+    public Film update(@Valid @RequestBody Film film) {
         log.trace("Фильм обновлен: " + film);
         return filmRepository.updateFilm(film);
     }

@@ -2,10 +2,10 @@ package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.dao.UserRepository;
+import ru.yandex.practicum.filmorate.repository.UserRepository;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.ValidationService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,22 +18,20 @@ public class UserController {
         userRepository = new UserRepository();
     }
 
-    @GetMapping("/users")
-    public List<User> findAll() {
-        log.trace("Кол-во пользователей равно " + userRepository.getUsers().size());
+    @GetMapping(value = "/users")
+    public List<User> getUsers() {
+        log.trace("Кол-во пользователей: " + userRepository.getUsers().size());
         return userRepository.getUsers();
     }
 
     @PostMapping(value = "/users")
-    public User create(@RequestBody User user) {
-        ValidationService.validateUser(user);
+    public User addUser(@Valid @RequestBody User user) {
         log.trace("Пользователь добавлен: " + user);
         return userRepository.addUser(user);
     }
 
     @PutMapping(value = "/users")
-    public User update(@RequestBody User user) {
-        ValidationService.validateUser(user);
+    public User updateUser(@Valid @RequestBody User user) {
         log.trace("Пользователь обновлен: " + user);
         return userRepository.updateUser(user);
     }

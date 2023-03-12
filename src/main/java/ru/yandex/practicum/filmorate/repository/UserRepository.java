@@ -1,11 +1,9 @@
-package ru.yandex.practicum.filmorate.dao;
+package ru.yandex.practicum.filmorate.repository;
 
+import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UserRepository {
 
@@ -37,7 +35,7 @@ public class UserRepository {
 
     public User updateUser(User user) {
         if (!users.containsKey(user.getId())) {
-            throw new RuntimeException("Пользователя с id = " + user.getId() + " не существует.");
+            throw new UserNotFoundException("Пользователя с id = " + user.getId() + " не существует.");
         }
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());

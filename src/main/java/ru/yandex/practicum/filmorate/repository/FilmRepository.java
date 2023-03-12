@@ -1,5 +1,6 @@
-package ru.yandex.practicum.filmorate.dao;
+package ru.yandex.practicum.filmorate.repository;
 
+import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class FilmRepository {
 
     public Film updateFilm(Film film) {
         if (!films.containsKey(film.getId())) {
-            throw new RuntimeException("Фильма с id = " + film.getId() + " не существует.");
+            throw new FilmNotFoundException("Фильма с id = " + film.getId() + " не существует.");
         }
         films.put(film.getId(), film);
         return film;
