@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.repository.FilmRepository;
 
@@ -66,7 +65,7 @@ class FilmControllerTest {
     @Test
     public void updateFilm() {
         Film filmToUpdate = new Film(1, "name3", "description3", LocalDate.now(), 110);
-        when(filmRepository.updateFilm(filmToUpdate)).thenThrow(FilmNotFoundException.class);
+        when(filmRepository.updateFilm(filmToUpdate)).thenReturn(filmToUpdate);
         mockMvc.perform(put("/films")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(filmToUpdate)))

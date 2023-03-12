@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.repository.UserRepository;
 
@@ -69,9 +68,9 @@ class UserControllerTest {
     @SneakyThrows
     @Test
     public void updateUser() {
-        User userToUpdate = new User(1, "user@mail.com", "userLogin", "userName",
+        User userToUpdate = new User(1, "name@mail.com", "userLogin", "userName",
                 LocalDate.of(1992, 10, 21));
-        when(userRepository.updateUser(userToUpdate)).thenThrow(UserNotFoundException.class);
+        when(userRepository.updateUser(userToUpdate)).thenReturn(userToUpdate);
         mockMvc.perform(put("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userToUpdate)))
